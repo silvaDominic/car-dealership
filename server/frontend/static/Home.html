@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="static/bootstrap.min.css">
 <script>
 
-const logout = async () => {
+const logout = async (e) => {
+  e.preventDefault();
   // Configure and make request for user
   let logoutUrl = `${window.location.origin}/djangoapp/logout`;
   const res = await fetch(logoutUrl, {
@@ -15,13 +16,14 @@ const logout = async () => {
   const json = await res.json();
 
   if (json) {
-    // Remove user from session, reroute to home, and reload the page
+    // Remove user from session and display an alert
     let username = sessionStorage.getItem('username');
-    sessionStorage.removeItem(username);
+    sessionStorage.removeItem('username');
+    alert(`Logging out ${username}...`);
+
+    // Reroute to the root and reload the page
     window.location.href = window.location.origin;
     window.location.reload();
-
-    alert(`Logging out ${username}...`);
   } else {
     alert('The user cannot be logged out.');
   }
@@ -33,7 +35,7 @@ let checkSession = ()=>{
   if (curr_user && curr_user !== "") {
     document.getElementById("loginlogout").innerHTML = 
     '<span class="homepage_links">' + curr_user +'</span>' +
-    '<a class="homepage_links" onclick="logout()" href="/">Logout</a>'
+    '<a class="homepage_links" onclick="logout(event)" href="/">Logout</a>'
   } else {
     document.getElementById("loginlogout").innerHTML = 
     '<a class="homepage_links" href="/login">Login</a>'+
