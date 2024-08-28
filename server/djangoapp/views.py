@@ -1,3 +1,5 @@
+from itertools import repeat
+
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
@@ -49,6 +51,7 @@ def register_user(request):
     first_name = data['firstName']
     last_name = data['lastName']
     email = data['email']
+    username_exist = False
 
     try:
         # Check for existing user
@@ -73,7 +76,7 @@ def register_user(request):
         return JsonResponse(data)
     # If user already exists
     else:
-        data = {"userName": username, "status": "Already Registered"}
+        data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
 
 # # Update the `get_dealerships` view to render the index page with
