@@ -12,7 +12,6 @@ build/
 develop-eggs/
 dist/
 downloads/
-documents/
 eggs/
 .eggs/
 .idea/
@@ -130,3 +129,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Diagrams
+**.drawio
+**.drawio.*
